@@ -16,6 +16,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -24,7 +27,7 @@ import java.util.Date;
 public class CrimeFragment extends Fragment {
     Crime mCrime;
     EditText mTitleField;
-    private Button mDateButton;
+    private Button mDateButton,mTimeButton;
     private CheckBox mSolvedCheckBox;
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
@@ -62,6 +65,16 @@ public class CrimeFragment extends Fragment {
 
             }});
         mDateButton=(Button)v.findViewById(R.id.date_button);
+        mTimeButton=(Button)v.findViewById(R.id.time_button);
+        mTimeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager manager=getFragmentManager();
+                TimePickerFragment dialog=TimePickerFragment.newInstance(mCrime.getmDate());
+                dialog.setTargetFragment(CrimeFragment.this, REQUEST_DATE);
+                dialog.show(manager,DIALOG_DATE);
+            }
+        });
 
         //TODO re-enable when applicable
         mDateButton.setOnClickListener(new View.OnClickListener() {
@@ -87,9 +100,11 @@ public class CrimeFragment extends Fragment {
     }
 
     private void updateFields() {
-        mDateButton.setText(mCrime.getmDate().toString());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        mDateButton.setText(dateFormat.format(mCrime.getmDate()));
         mTitleField.setText(mCrime.getTitle());
         mSolvedCheckBox.setChecked(mCrime.ismSolved());
+        mTimeButton.setText(new Time(mCrime.getmDate().getTime()).toString());
     }
 
     @Override
