@@ -2,6 +2,7 @@ package com.example.tyler.criminalintent;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -83,6 +84,13 @@ public class CrimeListFragment extends Fragment {
         public void onClick(View view) {
             Toast.makeText(getActivity(), mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT)
                     .show();
+            FragmentManager manager=getActivity().getSupportFragmentManager();
+            CrimeFragment fragment=CrimeFragment.newInstance(mCrime);
+
+            manager.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+
+
+
 
         }
     }

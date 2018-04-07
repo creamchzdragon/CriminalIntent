@@ -22,4 +22,9 @@ public abstract class SingleFragmentActivity extends FragmentActivity {
             fm.beginTransaction().add(R.id.fragment_container, fragment).commit();
         }
     }
+    public void onBackPressed()
+    {
+        FragmentManager fm = getSupportFragmentManager();
+        fm.popBackStack();
+    }
 }

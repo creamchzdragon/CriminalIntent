@@ -7,4 +7,5 @@
     <string name="cf_title">Title</string>
     <string name="cf_details">Details</string>
     <string name="cf_solved">Solved</string>
+    <string name="date_picker_title">Date of crime:</string>
 </resources>

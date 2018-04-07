@@ -1,5 +1,6 @@
 package com.example.tyler.criminalintent;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
@@ -7,7 +8,7 @@ import java.util.UUID;
  * Created by Tyler on 2/5/2018.
  */
 
-public class Crime {
+public class Crime implements Serializable{
     String mTitle;
     UUID mID;
     private Date mDate;
