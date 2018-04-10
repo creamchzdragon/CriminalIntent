@@ -20,6 +20,7 @@ import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -32,14 +33,16 @@ public class CrimeFragment extends Fragment {
     private static final String ARG_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
     private static final int REQUEST_DATE = 0;
-
+    public static final String EXTRA_CRIME_ID =
+            "edu.tyler.android.criminalintent.crime_id";
     public CrimeFragment() {
 
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-
+        UUID crimeId = (UUID) getArguments().getSerializable(ARG_CRIME_ID);
+        mCrime = CrimeLab.get(getActivity()).getCrime(crimeId);
         super.onCreate(savedInstanceState);
 
     }
@@ -47,7 +50,7 @@ public class CrimeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mCrime=(Crime)getArguments().getSerializable(ARG_CRIME_ID);
+        //mCrime=(Crime)getArguments().getSerializable(ARG_CRIME_ID);
         View v=inflater.inflate(R.layout.fragment_crime, container, false);
         mTitleField = (EditText) v.findViewById(R.id.crime_title);
         mTitleField.addTextChangedListener(new TextWatcher() {
@@ -122,6 +125,13 @@ public class CrimeFragment extends Fragment {
         Bundle args=new Bundle();
         args.putSerializable(ARG_CRIME_ID,crime);
         CrimeFragment fragment=new CrimeFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+    public static CrimeFragment newInstance(UUID crimeId) {
+        Bundle args = new Bundle();
+        args.putSerializable(ARG_CRIME_ID, crimeId);
+        CrimeFragment fragment = new CrimeFragment();
         fragment.setArguments(args);
         return fragment;
     }
