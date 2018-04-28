@@ -18,8 +18,9 @@
         <activity
             android:name=".CrimeActivity"
             android:label="@string/app_name"
+            android:parentActivityName=".CrimeListActivity"
 
-            android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
     </application>

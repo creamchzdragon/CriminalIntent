@@ -21,13 +21,7 @@ public class CrimeLab {
     }
     private CrimeLab(Context context) {
         mCrimes = new ArrayList<>();
-        //TODO remove me!
-        for (int i = 0; i < 100; i++) {
-            Crime crime = new Crime();
-            crime.setTitle("Crime #" + i);
-            crime.setmSolved(i % 2 == 0); // Every other
-            mCrimes.add(crime);
-        }
+
 
     }
 
@@ -42,6 +36,18 @@ public class CrimeLab {
             }
         }
         return null;
+    }
+    public void addCrime(Crime c){
+        mCrimes.add(c);
+    }
+    public boolean removeCrimeByID(UUID id){
+        for(Crime c:mCrimes){
+            if(c.getmID().equals(id)){
+                mCrimes.remove(c);
+                return true;
+            }
+        }
+        return false;
     }
 
 }
