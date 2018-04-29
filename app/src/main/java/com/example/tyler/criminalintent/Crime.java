@@ -11,6 +11,7 @@ import java.util.UUID;
 public class Crime implements Serializable{
     String mTitle;
     UUID mID;
+    private String mSuspect;
     private Date mDate;
     private boolean mSolved;
 
@@ -53,4 +54,16 @@ public class Crime implements Serializable{
     public void setmSolved(boolean mSolved) {
         this.mSolved = mSolved;
     }
+
+    public String getSuspect() {
+        return mSuspect;
+    }
+
+    public void setSuspect(String mSuspect) {
+        this.mSuspect = mSuspect;
+    }
+    public String getPhotoFilename() {
+        return "IMG_" + getmID().toString() + ".jpg";
+    }
+
 }

@@ -1,7 +1,9 @@
 package com.example.tyler.criminalintent;
 
 import android.content.Context;
+import android.os.Environment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -12,16 +14,19 @@ import java.util.UUID;
 
 public class CrimeLab {
     private static CrimeLab sCrimeLab;
-    private ArrayList<Crime> mCrimes=new ArrayList<>();
+    private static Context mContext;
+    private ArrayList<Crime> mCrimes = new ArrayList<>();
+
     public static CrimeLab get(Context context) {
         if (sCrimeLab == null) {
             sCrimeLab = new CrimeLab(context);
         }
         return sCrimeLab;
     }
+
     private CrimeLab(Context context) {
         mCrimes = new ArrayList<>();
-
+        mContext=context;
 
     }
 
@@ -29,6 +34,7 @@ public class CrimeLab {
         return mCrimes;
 
     }
+
     public Crime getCrime(UUID id) {
         for (Crime crime : mCrimes) {
             if (crime.getmID().equals(id)) {
@@ -37,12 +43,14 @@ public class CrimeLab {
         }
         return null;
     }
-    public void addCrime(Crime c){
+
+    public void addCrime(Crime c) {
         mCrimes.add(c);
     }
-    public boolean removeCrimeByID(UUID id){
-        for(Crime c:mCrimes){
-            if(c.getmID().equals(id)){
+
+    public boolean removeCrimeByID(UUID id) {
+        for (Crime c : mCrimes) {
+            if (c.getmID().equals(id)) {
                 mCrimes.remove(c);
                 return true;
             }
@@ -50,4 +58,12 @@ public class CrimeLab {
         return false;
     }
 
+    public File getPhotoFile(Crime crime) {
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (externalFilesDir == null) {
+            return null;
+        }
+        return new File(externalFilesDir, crime.getPhotoFilename());
+
+    }
 }
